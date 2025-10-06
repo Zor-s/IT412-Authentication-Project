@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Backend",
+            "type": "shell",
+            "command": "cmd.exe",
+            "args": [
+                "/c",
+                "venv\\Scripts\\activate && cd backend && python manage.py runserver"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Start Frontend",
+            "type": "shell",
+            "command": "cmd.exe",
+            "args": [
+                "/c",
+                "cd frontend && npm run dev"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Start All",
+            "dependsOn": [
+                "Start Backend",
+                "Start Frontend"
+            ],
+            "dependsOrder": "parallel"
+        }
+    ]
+}
