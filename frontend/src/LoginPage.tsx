@@ -1,21 +1,40 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+
     if (!email || !password) {
       setError("Please enter both email and password.");
       return;
     }
 
-    // Replace this with your real login logic
-    console.log("Logging in with", { email, password });
-    setError("");
-    alert("Logged in successfully!");
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/login/",
+        { email, password },
+        { withCredentials: true } // allows Django to set session cookie
+      );
+
+      if (response.status === 200) {
+        // Save fullname for frontend rendering convenience
+        localStorage.setItem("fullname", response.data.fullname);
+        // Redirect to dashboard
+        window.location.href = "/dashboard";
+      }
+    } catch (err: any) {
+      if (err.response && err.response.status === 401) {
+        setError("Invalid email or password.");
+      } else {
+        setError("Something went wrong. Please try again later.");
+      }
+    }
   };
 
   return (
@@ -23,8 +42,11 @@ const LoginPage: React.FC = () => {
       <form style={styles.form} onSubmit={handleSubmit}>
         <h2 style={styles.title}>Login</h2>
         {error && <p style={styles.error}>{error}</p>}
+
         <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="email">Email</label>
+          <label style={styles.label} htmlFor="email">
+            Email
+          </label>
           <input
             style={styles.input}
             type="email"
@@ -34,8 +56,11 @@ const LoginPage: React.FC = () => {
             placeholder="you@example.com"
           />
         </div>
+
         <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="password">Password</label>
+          <label style={styles.label} htmlFor="password">
+            Password
+          </label>
           <input
             style={styles.input}
             type="password"
@@ -45,9 +70,16 @@ const LoginPage: React.FC = () => {
             placeholder="Enter your password"
           />
         </div>
-        <button style={styles.button} type="submit">Login</button>
+
+        <button style={styles.button} type="submit">
+          Login
+        </button>
+
         <p style={styles.signupText}>
-          Don't have an account? <a href="/signup" style={styles.link}>Sign up</a>
+          Don't have an account?{" "}
+          <a href="/signup" style={styles.link}>
+            Sign up
+          </a>
         </p>
       </form>
     </div>

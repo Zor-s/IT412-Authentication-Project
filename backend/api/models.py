@@ -3,6 +3,7 @@ import binascii
 from django.db import models
 from hashlib import pbkdf2_hmac
 
+
 # Create your models here.
 class User(models.Model):
     fullname = models.CharField(max_length=255)
@@ -20,21 +21,13 @@ class User(models.Model):
 
         # Derive the password hash using PBKDF2-HMAC-SHA256
         hash_bytes = pbkdf2_hmac(
-            'sha256',
-            raw_password.encode(),
-            salt,
-            100_000  # recommended iterations
+            "sha256", raw_password.encode(), salt, 100_000  # recommended iterations
         )
         self.password_hash = binascii.hexlify(hash_bytes).decode()
 
     def check_password(self, raw_password):
         salt_bytes = binascii.unhexlify(self.salt)
-        hash_bytes = pbkdf2_hmac(
-            'sha256',
-            raw_password.encode(),
-            salt_bytes,
-            100_000
-        )
+        hash_bytes = pbkdf2_hmac("sha256", raw_password.encode(), salt_bytes, 100_000)
         return binascii.hexlify(hash_bytes).decode() == self.password_hash
 
     def __str__(self):

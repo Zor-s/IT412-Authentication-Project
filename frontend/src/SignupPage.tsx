@@ -25,11 +25,15 @@ const SignupPage: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/signup/", {
-        fullname: name,
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/signup/",
+        {
+          fullname: name,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
 
       if (response.status === 201 || response.status === 200) {
         setSuccess("Signup successful! You can now login.");
@@ -37,6 +41,11 @@ const SignupPage: React.FC = () => {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
+
+        // Automatically store fullname for UI rendering
+        localStorage.setItem("fullname", response.data.fullname);
+        // Redirect to dashboard
+        window.location.href = "/dashboard";
       }
     } catch (err: any) {
       if (err.response) {
@@ -57,10 +66,14 @@ const SignupPage: React.FC = () => {
       <form style={styles.form} onSubmit={handleSubmit}>
         <h2 style={styles.title}>Sign Up</h2>
         {error && <p style={styles.error}>{error}</p>}
-        {success && <p style={{ ...styles.error, color: "green" }}>{success}</p>}
+        {success && (
+          <p style={{ ...styles.error, color: "green" }}>{success}</p>
+        )}
 
         <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="name">Full Name</label>
+          <label style={styles.label} htmlFor="name">
+            Full Name
+          </label>
           <input
             style={styles.input}
             type="text"
@@ -73,7 +86,9 @@ const SignupPage: React.FC = () => {
         </div>
 
         <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="email">Email</label>
+          <label style={styles.label} htmlFor="email">
+            Email
+          </label>
           <input
             style={styles.input}
             type="email"
@@ -86,7 +101,9 @@ const SignupPage: React.FC = () => {
         </div>
 
         <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="password">Password</label>
+          <label style={styles.label} htmlFor="password">
+            Password
+          </label>
           <input
             style={styles.input}
             type="password"
@@ -99,7 +116,9 @@ const SignupPage: React.FC = () => {
         </div>
 
         <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="confirmPassword">Confirm Password</label>
+          <label style={styles.label} htmlFor="confirmPassword">
+            Confirm Password
+          </label>
           <input
             style={styles.input}
             type="password"
@@ -111,10 +130,15 @@ const SignupPage: React.FC = () => {
           />
         </div>
 
-        <button style={styles.button} type="submit">Sign Up</button>
+        <button style={styles.button} type="submit">
+          Sign Up
+        </button>
 
         <p style={styles.signupText}>
-          Already have an account? <a href="/" style={styles.link}>Login</a>
+          Already have an account?{" "}
+          <a href="/" style={styles.link}>
+            Login
+          </a>
         </p>
       </form>
     </div>
