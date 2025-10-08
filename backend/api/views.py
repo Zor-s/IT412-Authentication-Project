@@ -17,7 +17,7 @@ def signup(request):
         # Create session for the new user
         request.session["user_id"] = user.id
         request.session["fullname"] = user.fullname
-
+        request.session["email"] = user.email
         return Response(
             {
                 "message": "User created and logged in successfully",
@@ -33,13 +33,14 @@ def signup(request):
 def get_session_user(request):
     user_id = request.session.get("user_id")
     fullname = request.session.get("fullname")
+    email = request.session.get("email")
 
-    if not user_id or not fullname:
+    if not user_id or not fullname or not email:
         return Response(
             {"error": "Not authenticated"}, status=status.HTTP_401_UNAUTHORIZED
         )
 
-    return Response({"fullname": fullname}, status=status.HTTP_200_OK)
+    return Response({"fullname": fullname, "email": email}, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -68,7 +69,7 @@ def login(request):
     # Assign session
     request.session["user_id"] = user.id
     request.session["fullname"] = user.fullname
-
+    request.session["email"] = user.email
     return Response(
         {"message": "Login successful", "fullname": user.fullname},
         status=status.HTTP_200_OK,
