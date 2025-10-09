@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import api from "./api"; // adjust path if needed
+import bgImg from "./assets/images/bgImg.png";
+import logoImg from "/public/autproj.png"; // adjust path if needed
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -34,117 +36,93 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <h2 style={styles.title}>Login</h2>
-        {error && <p style={styles.error}>{error}</p>}
-
-        <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="email">
-            Email
-          </label>
-          <input
-            style={styles.input}
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
-          />
+    <div className="flex items-center justify-center h-screen bg-[linear-gradient(to_right,_#00b3ff,_#ae00ff)]">
+      <div className="grid grid-cols-1 md:grid-cols-2 rounded-2xl shadow-lg overflow-hidden max-w-6xl w-full">
+        {/* LEFFT COLUMN */}
+        <div
+          className="flex flex-col p-10 items-center justify-center space-y-4 text-center bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${bgImg}` }}
+        >
+          <p className="text-4xl text-white font-bold drop-shadow-lg">
+            Welcome to Auth!
+          </p>
+          <p className="text-white drop-shadow-lg">
+            You can sign in to access with your existing acccount!
+          </p>
+          <img className="w-50 h-auto" src={logoImg} alt="" />
         </div>
 
-        <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="password">
-            Password
-          </label>
-          <input
-            style={styles.input}
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-          />
+        {/* RIGHT COLUMN */}
+        <div className="flex flex-col items-center justify-center bg-gray-100 p-8 md:p-12 w-full">
+          <form
+            onSubmit={handleSubmit}
+            className="p-8 w-full max-w-md space-y-6"
+          >
+            <h2 className="text-center text-2xl font-bold text-gray-800">
+              USER LOGIN
+            </h2>
+
+            {error && (
+              <p className="text-red-500 text-center bg-red-100 p-2 rounded-md">
+                {error}
+              </p>
+            )}
+
+            <div className="space-y-2">
+              <label
+                htmlFor="email"
+                className="text-gray-700 font-medium tracking-wide"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6f47ff] focus:outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="password"
+                className="text-gray-700 font-medium tracking-wide"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ee00ff] focus:outline-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-[#6f47ff] to-[#ee00ff] text-white py-2.5 rounded-lg font-semibold shadow-md hover:opacity-90 transition-all duration-200"
+            >
+              Submit
+            </button>
+
+            <p className="text-center text-gray-600 text-sm">
+              Don’t have an account?{" "}
+              <a
+                href="/signup"
+                className="text-[#6f47ff] font-medium hover:underline"
+              >
+                Sign up
+              </a>
+            </p>
+          </form>
         </div>
-
-        <button style={styles.button} type="submit">
-          Login
-        </button>
-
-        <p style={styles.signupText}>
-          Don't have an account?{" "}
-          <a href="/signup" style={styles.link}>
-            Sign up
-          </a>
-        </p>
-      </form>
+      </div>
     </div>
   );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    background: "linear-gradient(to right, #667eea, #764ba2)",
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-  },
-  form: {
-    background: "#fff",
-    padding: "40px 30px",
-    borderRadius: "12px",
-    boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-    width: "100%",
-    maxWidth: "400px",
-    boxSizing: "border-box",
-  },
-  title: {
-    marginBottom: "20px",
-    color: "#333",
-    textAlign: "center",
-  },
-  inputGroup: {
-    marginBottom: "15px",
-  },
-  label: {
-    display: "block",
-    marginBottom: "5px",
-    color: "#555",
-  },
-  input: {
-    width: "100%",
-    padding: "10px 12px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
-    outline: "none",
-    boxSizing: "border-box",
-  },
-  button: {
-    width: "100%",
-    padding: "12px",
-    backgroundColor: "#667eea",
-    border: "none",
-    borderRadius: "8px",
-    color: "white",
-    fontSize: "16px",
-    cursor: "pointer",
-    transition: "0.3s",
-  },
-  error: {
-    color: "red",
-    marginBottom: "15px",
-    textAlign: "center",
-  },
-  signupText: {
-    textAlign: "center",
-    marginTop: "15px",
-  },
-  link: {
-    color: "#667eea",
-    textDecoration: "none",
-  },
 };
 
 export default LoginPage;
