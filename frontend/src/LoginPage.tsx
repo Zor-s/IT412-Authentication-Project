@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import api from "./api"; // adjust path if needed
 import bgImg from "./assets/images/bgImg.png";
-import logoImg from "/public/autproj.png"; // adjust path if needed
+import logoImg from "/autproj.png";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  // Auto-hide error after 3 seconds
+  React.useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => setError(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,12 +70,19 @@ const LoginPage: React.FC = () => {
             <h2 className="text-center text-2xl font-bold text-gray-800">
               USER LOGIN
             </h2>
-
-            {error && (
-              <p className="text-red-500 text-center bg-red-100 p-2 rounded-md">
-                {error}
-              </p>
-            )}
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  initial={{ y: -30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50"
+                >
+                  {error}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <div className="space-y-2">
               <label
