@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import SignupSerializer
@@ -5,7 +6,7 @@ from .serializers import SignupSerializer
 from rest_framework import status
 from django.contrib.sessions.models import Session
 from .models import User
-
+from django.middleware.csrf import get_token
 
 # Create your views here.
 @api_view(["POST"])
@@ -74,3 +75,7 @@ def login(request):
         {"message": "Login successful", "fullname": user.fullname},
         status=status.HTTP_200_OK,
     )
+
+
+def csrf_token(request):
+    return JsonResponse({'csrfToken': get_token(request)})

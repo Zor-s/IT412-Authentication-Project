@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "./api";
 
 // --- Types ---
 interface UserResponse {
@@ -58,10 +58,7 @@ const DashboardPage: React.FC = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get<UserResponse>(
-          "http://localhost:3000/api/session-user/",
-          { withCredentials: true }
-        );
+        const res = await api.get<UserResponse>("/session-user/");
         setFullname(res.data.fullname);
         setEmail(res.data.email);
       } catch {
@@ -77,11 +74,7 @@ const DashboardPage: React.FC = () => {
   const handleLogout = async () => {
     if (!window.confirm("Are you sure you want to log out?")) return;
     try {
-      await axios.post(
-        "http://localhost:3000/api/logout/",
-        {},
-        { withCredentials: true }
-      );
+      await api.post("/logout/", {});
       localStorage.removeItem("fullname");
       window.location.href = "/";
     } catch {

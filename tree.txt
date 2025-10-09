@@ -1,6 +1,7 @@
 
 ```
 IT412-Authentication-Project
+├─ .env
 ├─ backend
 │  ├─ api
 │  │  ├─ admin.py
@@ -18,7 +19,8 @@ IT412-Authentication-Project
 │  │  ├─ wsgi.py
 │  │  └─ __init__.py
 │  ├─ django_dependencies.txt
-│  └─ manage.py
+│  ├─ manage.py
+│  └─ requirements.txt
 ├─ frontend
 │  ├─ eslint.config.js
 │  ├─ index.html
@@ -34,7 +36,6 @@ IT412-Authentication-Project
 │  │  ├─ index.css
 │  │  ├─ LoginPage.tsx
 │  │  ├─ main.tsx
-│  │  ├─ signup
 │  │  └─ SignupPage.tsx
 │  ├─ tsconfig.app.json
 │  ├─ tsconfig.json

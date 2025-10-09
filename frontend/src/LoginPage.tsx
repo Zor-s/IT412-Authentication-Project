@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "./api"; // adjust path if needed
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -16,11 +16,7 @@ const LoginPage: React.FC = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/login/",
-        { email, password },
-        { withCredentials: true } // allows Django to set session cookie
-      );
+      const response = await api.post("/login/", { email, password });
 
       if (response.status === 200) {
         // Save fullname for frontend rendering convenience

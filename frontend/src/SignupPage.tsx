@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "./api";
 
 const SignupPage: React.FC = () => {
   const [name, setName] = useState("");
@@ -25,15 +25,11 @@ const SignupPage: React.FC = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/signup/",
-        {
-          fullname: name,
-          email,
-          password,
-        },
-        { withCredentials: true }
-      );
+      const response = await api.post("/signup/", {
+        fullname: name,
+        email,
+        password,
+      });
 
       if (response.status === 201 || response.status === 200) {
         setSuccess("Signup successful! You can now login.");

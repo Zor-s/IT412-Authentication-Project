@@ -72,6 +72,21 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
+# Allow cookies/credentials to be sent
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+
+# Required in Django 4+ for CSRF
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CSRF_COOKIE_SECURE = False        # True in production (HTTPS only)
+SESSION_COOKIE_SECURE = False     # True in production
+CSRF_COOKIE_SAMESITE = "Lax"      # or "None" if frontend is on a different domain
+SESSION_COOKIE_SAMESITE = "Lax"
+
 
 ROOT_URLCONF = 'backend.urls'
 
