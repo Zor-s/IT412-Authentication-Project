@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 // Faking the api import for demonstration purposes
 import api from "./api";
 import { motion, AnimatePresence } from "framer-motion";
-import logoImg from "/autproj.png";
+import Slideshow from "./Slideshow";
+// import logoImg from "/autproj.png";
 // import { div } from "framer-motion/client";
 
 // --- TYPE DEFINITIONS ---
@@ -173,7 +174,7 @@ const SignupPage: React.FC = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-[linear-gradient(to_right,_#00b3ff,_#ae00ff)]">
       {/* LEFT COLUMN */}
-      <div className="flex flex-col justify-center items-center p-10 bg-white w-[600px] text-left h-full">
+      <div className="flex flex-col justify-center items-center p-10 bg-white w-[700px] text-left h-full">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md space-y-5 text-gray-700"
@@ -330,19 +331,8 @@ const SignupPage: React.FC = () => {
       </div>
 
       {/* RIGHT COLUMN */}
-      <div className="hidden md:block flex-1">
-        <div className="grid h-full place-items-center text-center gap-10">
-          <p className="text-3xl text-white font-bold text-shadow-lg mb-10">
-            AUTH Project
-          </p>
-          <img src={logoImg} className="drop-shadow-2xl w-60 h-auto" />
-          <p className="text-2xl text-white font-bold text-shadow-lg">
-            “Secure your learning. Empower your future.”
-          </p>
-          <p className="text-white text-shadow-lg italic">
-            Empowering learning through trusted authentication.
-          </p>
-        </div>
+      <div className="hidden md:block flex-1 h-screen p-10">
+        <Slideshow />
       </div>
     </div>
   );
