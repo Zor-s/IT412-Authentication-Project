@@ -27,21 +27,30 @@ IT412-Authentication-Project
 │  ├─ package-lock.json
 │  ├─ package.json
 │  ├─ public
+│  │  ├─ autproj.png
 │  │  └─ vite.svg
 │  ├─ README.md
 │  ├─ src
 │  │  ├─ api.ts
 │  │  ├─ assets
+│  │  │  ├─ images
+│  │  │  │  ├─ bg.jpg
+│  │  │  │  ├─ bgImg.png
+│  │  │  │  ├─ img1.png
+│  │  │  │  ├─ img2.png
+│  │  │  │  └─ img3.jpeg
 │  │  │  └─ react.svg
 │  │  ├─ DashboardPage.tsx
 │  │  ├─ index.css
 │  │  ├─ LoginPage.tsx
 │  │  ├─ main.tsx
-│  │  └─ SignupPage.tsx
+│  │  ├─ SignupPage.tsx
+│  │  └─ Slideshow.tsx
 │  ├─ tsconfig.app.json
 │  ├─ tsconfig.json
 │  ├─ tsconfig.node.json
 │  └─ vite.config.ts
+├─ README.md
 └─ tree.txt
 
 ```

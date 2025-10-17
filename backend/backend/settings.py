@@ -56,8 +56,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # <--- add this
-    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  
+    'django.middleware.security.SecurityMiddleware', # XSS Protection
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -116,7 +116,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'AuthDB',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'asd123ASD',
         'HOST': 'localhost', 
         'PORT': '5432',      
     }
